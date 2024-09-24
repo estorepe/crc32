@@ -1,17 +1,12 @@
 // crc32.go
+
 package crc32
 
 import (
 	"hash"
-	"sync/atomic"
 )
 
-// Table is unused but included for compatibility with hash/crc32
-type Table struct{}
-
 const Size = 4
-
-var useAVX512 uint32
 
 type digest struct {
 	crc uint32
@@ -68,10 +63,5 @@ func Checksum(data []byte) uint32 {
 	return crc ^ 0xFFFFFFFF
 }
 
-// update calls the appropriate update function based on the CPU architecture.
-func update(crc uint32, p []byte) uint32 {
-	if atomic.LoadUint32(&useAVX512) == 1 {
-		return updateAVX512(crc, p)
-	}
-	return updateNEON(crc, p)
-}
+// update is implemented in architecture-specific files
+func update(crc uint32, p []byte) uint32
