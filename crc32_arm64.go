@@ -18,7 +18,7 @@ func updateNEON(crc uint32, p []byte) uint32 {
 	return crc
 }
 
-func updateAVX512(crc uint32, p []byte) uint32 {
+// func updateAVX512(crc uint32, p []byte) uint32 {
 	// This function should never be called on ARM64
-	panic("AVX512 not supported on ARM64")
-}
+//	panic("AVX512 not supported on ARM64")
+// }
